@@ -22,3 +22,15 @@ def create_app():
 
     return application
 
+def create_admin_user():
+    from app import mongo, bcrypt
+    admin_user = mongo.db.users.find_one({"username": "admin"})
+    if not admin_user:
+        hashpass = bcrypt.generate_password_hash("admin").decode('utf-8')
+        mongo.db.users.insert_one({
+            "username": "admin",
+            "password": hashpass,
+            "role": "admin"
+        })
+        print("Admin user created!")
+

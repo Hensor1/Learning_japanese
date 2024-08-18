@@ -11,9 +11,7 @@ def register():
         users = mongo.db.users
         username = request.form.get('username')
         password = request.form.get('password')
-
-        #Assigning role to standard users
-        role = 'user'
+        role = request.form.get('role', 'user') #Standard role
 
         existing_user = users.find_one({'username': username})
 
@@ -37,7 +35,7 @@ def login():
 
         if user and bcrypt.check_password_hash(user['password'], password):
             session['username'] = username
-            session['role'] = user.get('role', 'user')
+            session['role'] = user['role']
             return jsonify(message="Logged in successfully"), 200
         return jsonify(message="Invalid credentials"), 401
     return render_template('login.html')
