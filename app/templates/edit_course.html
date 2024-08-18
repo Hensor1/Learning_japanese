@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit course</title>
+</head>
+<body>
+    <h1>Edit course</h1>
+    <form method="POST" action="{{ url_for('main.edit_course', course_id=course['_id']) }}">
+        <label for="name">Course name:</label>
+        <input type="text" id="name" name="name" value="{{ course['name'] }}" required>
+        <br>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required>{{ course['description'] }}</textarea>
+        <br>
+        <button type="submit">Update course</button>
+    </form>
+</body>
+</html>
